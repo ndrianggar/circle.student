@@ -1,0 +1,18 @@
+task tomorrow
+
+1. buat absensi guru
+2. buat crud materi dan view pending 31032018
+3. sambungkan kode kelas pararel di bank soal 
+4. menu diskusi tambahkan kelas pararel
+5. menu quiz tambahkan kelas pararel sudah tinggal di cek
+6. laporan nilai siswa tambahkan kelas pararel 
+7. journal guru sudah berhasil tampil tinggal input journal sudah ok tgl 28/3/2018
+8. belum selesai menu bank soal dan quiz 
+9. sudah bisa input kompetensi dari sisi admin tinggal masukkan kelas pararel dan tampil pada guru 04/04/2018
+10. user admin materi sudah ok 07042018
+11. user crud user kepsek 
+
+
+
+
+

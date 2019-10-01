@@ -1,0 +1,111 @@
+<?php 
+session_start();
+error_reporting(0);
+include "../config/koneksi.php"; 
+include "../config/fungsi_indotgl.php"; 
+$s = mysql_fetch_array(mysql_query("SELECT * FROM rb_siswa a LEFT JOIN rb_jenis_kelamin b ON a.id_jenis_kelamin=b.id_jenis_kelamin 
+                                        LEFT JOIN rb_agama c ON a.id_agama=c.id_agama where a.nisn='$_GET[id]'"));
+
+?>
+<html>
+<head>
+<title>Hal 2 - Raport Siswa</title>
+<link rel="stylesheet" href="../bootstrap/css/printer.css">
+<style type="text/css">
+  td { padding:2px; }
+</style>
+</head>
+<body onload="window.print()">
+<img src="../dist/img/watermark_smp.png" class="watermark">
+    <h1 align=center>IDENTITAS SISWA</h1><br>
+
+    <table style='font-size:15px' width='100%'>
+        <tr><td width='25px'>1.</td>  <td width='190px'>Nama Siswa (Lengkap) </td>   <td width='10px'> : </td><td> <?php echo "$s[nama]"; ?></td></tr>
+        <tr><td>2.</td>  <td width='190px'>Nomor Induk</td>                          <td width='10px'> : </td><td> <?php echo "$s[nipd]"; ?></td></tr>
+        <tr><td>3.</td>  <td width='190px'>Tempat danTanggal Lahir</td>                      <td width='10px'> : </td><td> <?php echo "$s[tempat_lahir], "; if ($s[tanggal_lahir] != '0000-00-00') {
+           echo date('d-m-Y',strtotime($s[tanggal_lahir])); 
+        } ?></td></tr>
+        <tr><td>4.</td>  <td width='190px'>Jenis Kelamin</td>                             <td width='10px'> : </td><td> <?php echo "$s[jenis_kelamin]"; ?></td></tr>
+        <tr><td>5.</td>  <td width='190px'>Agama</td>                                     <td width='10px'> : </td><td> <?php echo "$s[nama_agama]"; ?></td></tr>
+        <tr><td>6.</td>  <td width='190px'>Anak ke</td>                                   <td width='10px'> : </td><td> <?php echo "-"; ?></td></tr>
+        <tr><td>7.</td>  <td width='190px'>Status dalam Keluarga</td>                     <td width='10px'> : </td><td> <?php echo "Anak Kandung"; ?></td></tr>
+        <tr><td>8.</td>  <td width='190px'>Alamat Siswa</td>                      <td width='10px'> : </td><td> <?php echo "$s[alamat]"; ?></td></tr>
+        <tr><td></td>  <td width='190px'>Telepon</td>                       <td width='10px'> : </td><td> <?php echo "$s[telepon]"; ?></td></tr>
+        
+        <tr><td>9.</td> <td width='190px'>Diterima di sekolah ini</td>                   <td width='10px'> </td><td> <?php echo ""; ?></td></tr>
+        <tr><td></td> <td width='190px'>a.Di Kelas</td>                                     <td width='10px'> : </td><td> <?php echo "$s[kode_kelas]"; ?></td></tr>
+        <tr><td></td> <td width='190px'>b.Pada Tanggal</td>                                 <td width='10px'> : </td><td> <?php echo tgl_raport(date('Y-m-d')); ?></td></tr>
+        <!-- <tr><td></td> <td width='190px'>c.Semester</td>                                 <td width='10px'> : </td><td> <?php echo tgl_raport(date('Y-m-d')); ?></td></tr> -->
+        
+        <tr><td>10.</td> <td width='190px'>Sekolah Asal</td>                    <td width='10px'> </td><td></td></tr>
+        <tr><td></td> <td width='190px'>a.Nama Sekolah</td>                    <td width='10px'> : </td><td> <?php echo ""; ?></td></tr>
+        <tr><td></td> <td width='190px'>b.Alamat</td>                    <td width='10px'> : </td><td> <?php echo ""; ?></td></tr>
+
+        <tr><td>11.</td> <td width='190px'>Ijazah SMP/MTs/Paket B</td>                    <td width='10px'> </td><td></td></tr>
+        <tr><td></td> <td width='190px'>a.Tahun</td>                    <td width='10px'> : </td><td> <?php echo ""; ?></td></tr>
+        <tr><td></td> <td width='190px'>b.Nomor</td>                    <td width='10px'> : </td><td> <?php echo ""; ?></td></tr>
+
+        <tr><td>12.</td> <td width='190px'>Orang Tua</td>                                 <td width='10px'> </td><td></td></tr>
+        <tr><td></td> <td width='190px'>a. Nama Ayah</td>                                 <td width='10px'> : </td><td> <?php echo "$s[nama_ayah]"; ?></td></tr>
+        <tr><td></td> <td width='190px'>b. Nama Ibu</td>                                  <td width='10px'> : </td><td> <?php echo "$s[nama_ibu]"; ?></td></tr>
+        
+        <tr><td>13</td> <td width='190px'>Alamat Orang Tua</td>                                    <td width='10px'> : </td><td> <?php echo "$s[alamat]"; ?></td></tr>
+        <tr><td></td> <td width='190px'>Telepon</td>                          <td width='10px'> : </td><td> <?php echo "$s[no_telpon_ayah]"; ?></td></tr>
+        
+        <tr><td>14.</td> <td width='190px'>Pekerjaan Orang Tua</td>                       <td width='10px'> </td><td></td></tr>
+        <tr><td></td> <td width='190px'>a. Pekerjaan Ayah</td>                                      <td width='10px'> : </td><td> <?php echo "$s[pekerjaan_ayah]"; ?></td></tr>
+        <tr><td></td> <td width='190px'>b. Pekerjaan Ibu</td>                                       <td width='10px'> : </td><td> <?php echo "$s[pekerjaan_ibu]"; ?></td></tr>
+        
+        <tr><td>15.</td> <td width='190px'>Nama Wali</td>                                 <td width='10px'> : </td><td> <?php echo "$s[nama_wali]"; ?></td></tr>
+        <tr><td>16.</td> <td width='190px'>Alamat Wali</td>                                    <td width='10px'> : </td><td> <?php echo "$s[alamat]"; ?></td></tr>
+        <tr><td></td> <td width='190px'>Telepon</td>                             <td width='10px'> : </td><td> <?php echo "-"; ?></td></tr>
+        <tr><td>17.</td> <td width='190px'>Pekerjaan Wali</td>                                 <td width='10px'> : </td><td> <?php echo "$s[pekerjaan_wali]"; ?></td></tr>
+    </table>
+    <br><br><br>
+    <table border=0 width='70%' style='float:right'>
+        <tr><td><?php if (trim($s[foto])==''){
+                                  echo "<img style='width:95px; padding:3px; border:1px solid #000' src='../foto_siswa/no-image.jpg'>";
+                                }else{
+                                  echo "<img style='width:95px; padding:3px; border:1px solid #000' src='../foto_siswa/$s[foto]'>";
+                                } ?></td>
+             <?php
+             $kls = $_GET[kelas];
+            if($kls=="VII" || $kls=="VIII"){
+              $tanggal ="Jakarta, 28 Juni 2019";
+              }elseif ($kls =="IX"){
+                $tanggal= "Jakarta, 29 Mei 2019";
+              }else{
+                $tanggal= "Tanggal Di Tentukan";
+              }
+              ?>
+
+            <td width='68%'><?php echo $tanggal ?><br>
+                Kepala <?php echo $_SESSION[unit] ?> IBNU HAJAR BOARDING SCHOOL,<br><br><br><br><br><br><br>
+
+
+                     <?php
+                      $kelas = $_GET[kelas];
+                       if ($kelas == "VII" || $kelas == "VIII" || $kelas == "IX") {
+                        $kepsek = mysql_fetch_array(mysql_query("select * from rb_users where jabatan = 'kepala sekolah' and unit = 'SMP PUTRA'"));
+                      }elseif ($kelas=="X"||$kelas=="XI"||$kelas=="XII") {
+                        $kepsek = mysql_fetch_array(mysql_query("select * from rb_users where jabatan = 'kepala sekolah' and unit = 'SMA PUTRA'"));
+                      }elseif ($kelas=="VII SMP"||$kelas=="VIII SMP"||$kelas=="XI SMP") {
+                        $kepsek = mysql_fetch_array(mysql_query("select * from rb_users where jabatan = 'kepala sekolah' and unit = 'SMP PUTRI'")); 
+
+                      }elseif ($kelas=="X.IPA"||$kelas=="XI.IPA"||$kelas=="XI.IPS") {
+                        $kepsek = mysql_fetch_array(mysql_query("select * from rb_users where jabatan = 'kepala sekolah' and unit = 'SMA PUTRI'"));
+                      }   
+                     ?>
+                  <b><?php echo $kepsek[nama_lengkap];?><br>
+                  NIP : <?php echo $kepsek[username]; ?></b></td></tr>
+                <td align="center" valign="top"><br /><br /><br /><br /><br />
+    </table>
+</body>
+<script type="text/javascript">
+    setTimeout(function () {
+      window.print();
+    }, 500);
+    window.onfocus = function () { setTimeout(function () { window.close(); }, 500); }
+     window.onafterprint = function () {  window.close(); }
+</script>
+</html>

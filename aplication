@@ -1,0 +1,65 @@
+<style type="text/css">
+  @media print {
+    table{
+      font-size: 14px;
+    }
+    body * {
+      visibility: hidden;
+    }
+    #section-to-print, #section-to-print * {
+      visibility: visible;
+    }
+    #section-to-print {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+     #header {visibility: visible;}
+    top-center { content: "This page is intentionally left blank." }
+  }
+</style>
+<?php 
+session_start();
+error_reporting(0);
+include "../config/koneksi.php"; 
+?>
+<div class="row col-lg-12">
+  <div class="box" id="section-to-print" style="border: 0px;">
+    <div class="box-header">
+      <h4 class="text-center">Laporan Pelanggaran Siswa | <?php
+        $date=date_create("$_GET[bulan]");
+        echo date_format($date,"M Y");
+        ?></h4>
+    </div>
+    <table class="table table-striped">
+      <tr>
+        <th style="text-align: center;">No</th>
+        <th>Nama Siswa</th>
+        <th style="text-align: center;">Jumlah Pelanggaran</th>
+
+      </tr>
+    <?php
+    $siswa = mysql_query("SELECT * FROM rb_prospel where unit = '".$_SESSION[unit]."' ORDER BY nama ASC");$no=1;
+    while ($row=mysql_fetch_array($siswa)) {
+      $jumlahpel = mysql_fetch_array(mysql_query("SELECT b.nama, COUNT(a.`id_siswa`) FROM rb_prospel a INNER JOIN rb_jns_pel b ON a.id_jns_pel GROUP BY a.id_prospel "));
+    
+      // echo "SELECT b.nama_guru, COUNT(a.nip) As Kehadiran FROM `rb_absensi_guru` a INNER JOIN rb_guru b ON a.nip = b.nip WHERE DATE_FORMAT(`tanggal`, "%Y-%m") = '2018-09';
+      if (empty($jumlahpel[jumlahpel]||$jumlahpel<0)) {
+        $jumlahpel = 0;
+      }else{
+        $jumlahpel = $jumlahpel[jumlahpel];
+      }
+      echo "
+        <tr>
+          <td align='center'>".$no++."</td>
+          <td>".$row[nama]."</td>
+          <td align='center'>".$jumlahpel."</td>
+         
+        </tr>
+      ";
+    }?>
+    </table>
+  </div>
+  <button class="btn btn-primary pull-right" onclick="print()"><i class="fa fa-print"></i> PRINT</button>
+</div>
+

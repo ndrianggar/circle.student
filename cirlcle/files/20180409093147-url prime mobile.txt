@@ -1,0 +1,13 @@
+
+url login admin https://www.primemobile.co.id/psep_sekolah/login
+================================
+User admin		password
+smpihbs			psepsmpihbs
+
+
+
+url login siswa https://www.primemobile.co.id/login
+===================
+user siswa		password
+akmall5tbo		l5tbo
+

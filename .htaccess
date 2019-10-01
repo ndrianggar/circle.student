@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule ^ihbs$/html/index.php

@@ -1,0 +1,6 @@
+RewriteEngine on
+DirectoryIndex index.php
+
+RewriteRule ^php\.mu$ index.php?home&me=$1 [L]
+RewriteRule ^menu\.circle$ index.php?view=menu
+RewriteRule ^logout\.mu$ logout.php
