@@ -138,6 +138,7 @@
               <a href="#"><i class="fa fa-calendar"></i> <span>Laporan Nilai Siswa</span><i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
                  <li><a href="index.php?view=raportuts"><i class="fa fa-circle-o"></i> Data Nilai Bulanan</a></li>
+                <li><a href="index.php?view=downnilaiuts"><i class="fa fa-circle-o"></i> Download Nilai Bulanan</a></li>
                 <li><a href="index.php?view=capaianhasilbelajar"><i class="fa fa-circle-o"></i> Data Capaian Belajar</a></li>
                 <li><a href="index.php?view=extrakulikuler"><i class="fa fa-circle-o"></i> Data Extrakulikuler</a></li>
                 <li><a href="index.php?view=prestasi"><i class="fa fa-circle-o"></i> Data Prestasi</a></li>

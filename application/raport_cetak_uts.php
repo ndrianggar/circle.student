@@ -84,9 +84,13 @@
                     </thead>
                     <tbody>
                   <?php 
-                    $tampil = mysql_query("SELECT * FROM rb_siswa a LEFT
+                   $tampil = mysql_query("SELECT c.*, a.nipd, a.nama, b.jenis_kelamin FROM rb_ledger c JOIN rb_siswa a ON c.nisn = a.nisn
                                               JOIN rb_jenis_kelamin b ON a.id_jenis_kelamin=b.id_jenis_kelamin 
-                                              where a.kode_kelas='$_GET[id]' AND a.id_kls_pararel='$_GET[ie]' AND a.status_siswa !='lulus' ORDER BY a.id_siswa");
+                                                where c.kode_kelas='$_GET[id]' AND c.id_kls_pararel='$_GET[ie]' AND c.tahun = '$_GET[tahun]' GROUP BY c.nisn ORDER BY a.nama asc");
+                  /*  $tampil = mysql_query("SELECT * FROM rb_siswa a LEFT
+                                              JOIN rb_jenis_kelamin b ON a.id_jenis_kelamin=b.id_jenis_kelamin 
+
+                                              where a.kode_kelas='$_GET[id]' AND a.id_kls_pararel='$_GET[ie]' AND a.status_siswa !='lulus' ORDER BY a.id_siswa");*/
                     $no = 1;
                     while($r=mysql_fetch_array($tampil)){
                     echo "<tr><td width=40px>$no</td>

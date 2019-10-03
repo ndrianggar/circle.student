@@ -66,7 +66,7 @@
   $jum = mysql_num_rows($data);
  ?>
 <div class="box-body" style="overflow-x:auto;">
-  <table id="example" class="table table-bordered table-striped table-responsive">
+  <table id="dataledger" class="table table-bordered table-striped table-responsive">
     <thead>
       <tr>
         <th style='width:20px; vertical-align: middle; background-color: #4286f4;' rowspan="3">No</th>
@@ -87,9 +87,9 @@
         <?php 
           $data = mysql_query("SELECT a.namamatapelajaran, b.kodejdwl FROM rb_mata_pelajaran a INNER JOIN rb_jadwal_pelajaran b ON a.kode_pelajaran = b.kode_pelajaran WHERE b.kode_kelas = '$_GET[kelas]' AND id_kls_pararel = '$_GET[kelasp]' AND b.id_tahun_akademik = $_GET[tahun] GROUP BY a.namamatapelajaran");
           while ($r=mysql_fetch_array($data)) {
-            echo "<th style='background-color:#fce96c;'>UB</th>
-                <th style='background-color:#fce96c;'>UAS</th>
-                <th style='background-color:#47a56d;'>R</th>";
+            echo "<th style='background-color:#fce96c; color : black;'>UB</th>
+                <th style='background-color:#fce96c;color : black;'>UAS</th>
+                <th style='background-color:#47a56d; color : black;'>R</th>";
           }
         ?>
         <th style="text-align: center; width: 10px; background-color: #e24444;">S</th>

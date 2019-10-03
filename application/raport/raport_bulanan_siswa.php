@@ -99,6 +99,7 @@ include "../config/fungsi_indotgl.php";
           $mapel = mysql_query("SELECT * FROM  rb_jadwal_pelajaran a JOIN rb_mata_pelajaran b ON a.kode_pelajaran=b.kode_pelajaran where a.kode_kelas='$_GET[kelas]' AND id_kls_pararel = '$_GET[kelasp]' AND a.id_tahun_akademik='$_GET[tahun]' group by a.kode_pelajaran");$no = 1; $n = 0;
           
           while ($m = mysql_fetch_array($mapel)){ 
+            echo "SELECT * FROM rb_nilai_uts where kodejdwl='$m[kodejdwl]' and nisn = '$_GET[id]' AND raport_bulan = '$_GET[bulan]'";
           $nilai = mysql_fetch_array(mysql_query("SELECT * FROM rb_nilai_uts where kodejdwl='$m[kodejdwl]' and nisn = '$_GET[id]' AND raport_bulan = '$_GET[bulan]'"));
             echo "
             <tr>

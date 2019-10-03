@@ -96,6 +96,8 @@
    <!--  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
     <!-- DataTables -->
     <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
+<!--    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"> -->
+   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.0/css/buttons.dataTables.min.css">
     
     <link rel="stylesheet" href="plugins/select2/select2.css">
     <!-- Theme style -->
@@ -598,6 +600,10 @@ document.onkeydown=function(e){e=e||window.event;if(e.keyCode==123||e.keyCode==1
             echo "<div class='row'>";
                     include "application/raport_uts.php";
             echo "</div>";
+           }elseif ($_GET[view]=='downnilaiuts'){
+            echo "<div class='row'>";
+                    include "application/downnilaiuts.php";
+            echo "</div>";  
           }elseif ($_GET[view]=='raportcetak'){
           /*  cek_session_admin_guru();*/
             echo "<div class='row'>";
@@ -729,6 +735,10 @@ document.onkeydown=function(e){e=e||window.event;if(e.keyCode==123||e.keyCode==1
             echo "<div class='row'>";
               include "application/importnilaik.php";
             echo "</div>";
+          }elseif ($_GET['view']=='importJadwal'){
+            echo "<div class='row'>";
+              include "application/importJadwal.php";
+            echo "</div>";
           }elseif ($_GET['view']=='menu'){
             cek_session_admin();
             echo "<div class='row'>";
@@ -786,6 +796,12 @@ document.onkeydown=function(e){e=e||window.event;if(e.keyCode==123||e.keyCode==1
     <script>
       $.widget.bridge('uibutton', $.ui.button);
     </script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jszip-2.5.0/dt-1.10.20/b-1.6.0/b-html5-1.6.0/b-print-1.6.0/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs/jszip-2.5.0/dt-1.10.20/b-1.6.0/b-html5-1.6.0/b-print-1.6.0/datatables.min.js"></script>
+
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/data.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -876,7 +892,49 @@ document.onkeydown=function(e){e=e||window.event;if(e.keyCode==123||e.keyCode==1
   $(function () { 
 
     $("#dataSiswa").DataTable({
-      "pageLength": 50
+      "pageLength": 50,
+
+      dom: 'Bfrtip',
+        buttons: [ {
+            extend : 'pdf',
+            oriented : 'potrait',
+            pageSize : 'Legal',
+            title : 'Data Siswa',
+            download : 'open'
+          },
+          'csv', 'excel', 'print', 'copy'
+            ]
+    });
+
+
+    $("#dataledger").DataTable({
+      "pageLength": 50,
+
+      dom: 'Bfrtip',
+        buttons: [ {
+            extend : 'pdf',
+            oriented : 'landscape',
+            pageSize : 'Legal',
+            title : 'Data Siswa',
+            download : 'open'
+          },
+          'csv', 'excel', 'print', 'copy'
+            ]
+    });
+
+    $("#datadownloadnilai").DataTable({
+      "pageLength": 50,
+
+      dom: 'Bfrtip',
+        buttons: [ {
+            extend : 'pdf',
+            oriented : 'landscape',
+            pageSize : 'Legal',
+            title : 'Data Siswa',
+            download : 'open'
+          },
+          'csv', 'excel', 'print', 'copy'
+            ]
     });
     $("#dataGuru").DataTable({
       "pageLength": 50
@@ -895,17 +953,7 @@ document.onkeydown=function(e){e=e||window.event;if(e.keyCode==123||e.keyCode==1
       "info": true,
       "autoWidth": false*/
     });
-
-    $('#example3').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": false,
-      "info": false,
-      "autoWidth": false,
-      "pageLength": 200
-    });
-
+    
     $('#mastersiswa').DataTable({
       "paging": false,
       "lengthChange": false,
@@ -1410,6 +1458,12 @@ config.extraPlugins = 'ngen_filebrowser';
           autoclose :true,
           minViewMode: "months"
         });
+         $('#getblnutsdown').datepicker({
+          format: "mm-yyyy",
+          viewMode: "months",
+          autoclose :true,
+          minViewMode: "months"
+        });
 
         $('#blnAkses').datepicker({
           format: "yyyy-mm",
@@ -1462,7 +1516,12 @@ config.extraPlugins = 'ngen_filebrowser';
           window.location.href = 'index.php?view=lap_pel&blnPel='+bln+'';
         }
        </script>
-
+<script type="text/javascript">
+        function downblnuts() {
+          var bln = $("#getblnutsdown").val();
+          window.location.href = 'index.php?view=downnilaiuts&blnrpt='+bln+'';
+        }
+       </script>
  
       <div style='clear:both'></div>
       </div>
@@ -1480,5 +1539,3 @@ config.extraPlugins = 'ngen_filebrowser';
     include "home.php";
   }
 ?>
-
-
