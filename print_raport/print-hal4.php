@@ -9,6 +9,7 @@ $frt = mysql_fetch_array(mysql_query("SELECT * FROM rb_header_print ORDER BY id_
 <title>Hal 4 - Raport Siswa</title>
 <link rel="stylesheet" href="../bootstrap/css/printer.css">
 <link media="print" href="../bootstrap/css/print.css" />
+<style type="text/css"> @page{margin: 1cm;}</style>
 
 </head>
 
@@ -45,18 +46,18 @@ echo "<table width=100% style='font-size:13px;'>
       </table>";
 
 echo "<table id='tablemodul1' width=100% border=1>
-          <tr bgcolor='#0984e3' >
+          <tr bgcolor='#bdc3c7'>
             <th rowspan='3'>No</th>
             <th width='160px' rowspan='3'>Mata Pelajaran</th>
             <th rowspan='3'>KKM</th>
             <th colspan='5'>Nilai Hasil Belajar</th>
           </tr>
           </tr>
-            <th colspan='2' style='text-align:center' bgcolor='#0984e3'>Pengetahuan</th>
-            <th colspan='2' style='text-align:center' bgcolor='#0984e3'>Keterampilan</th>
-            <th colspan='2' style='text-align:center' bgcolor='#0984e3'>Sikap</th>
+            <th colspan='2' style='text-align:center' bgcolor='#bdc3c7'>Pengetahuan</th>
+            <th colspan='2' style='text-align:center' bgcolor='#bdc3c7'>Keterampilan</th>
+            <th colspan='2' style='text-align:center' bgcolor='#bdc3c7'>Sikap</th>
           </tr>
-          <tr bgcolor='#0984e3'>
+          <tr bgcolor='#bdc3c7'>
             <th>Angka</th>
             <th width='130px'>Huruf</th>
             <th>Angka</th>
