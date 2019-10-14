@@ -1,9 +1,9 @@
 <?php
 date_default_timezone_set('Asia/Jakarta');
-$server = "192.168.6.204";
+$server = "localhost";
 $username = "root";
-$password = "P@ssw0rd";
-$database = "circle";
+$password = "P@ssw0rd123!";
+$database = "circle3";
 header('Content-type: text/html; charset=utf-8');
 $con = mysql_connect($server, $username, $password);
 mysql_set_charset('utf8',$con);

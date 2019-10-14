@@ -8,7 +8,10 @@ $frt = mysql_fetch_array(mysql_query("SELECT * FROM rb_header_print ORDER BY id_
 <head>
 <title>Hal 4 - Raport Siswa</title>
 <link rel="stylesheet" href="../bootstrap/css/printer.css">
+<link media="print" href="../bootstrap/css/print.css" />
+
 </head>
+
 <body onload="window.print()">
 <!-- <img src="../dist/img/watermark_smp.png" class="watermark"> -->
 <?php
@@ -16,8 +19,9 @@ $t = mysql_fetch_array(mysql_query("SELECT * FROM rb_tahun_akademik where id_tah
 $s = mysql_fetch_array(mysql_query("SELECT a.nama,a.nisn, b.*, c.nama_guru, e.kode_kelas as walikelas, c.nip, d.nm_pararel FROM rb_ledger e JOIN rb_siswa a  ON e.nisn = a.nisn
                                       JOIN rb_kelas b ON e.kode_kelas=b.kode_kelas LEFT JOIN rb_kls_pararel d on d.id_kls_pararel = e.id_kls_pararel LEFT JOIN rb_guru c ON d.nip=c.nip  where a.nisn='$_GET[id]'"));
 if (substr($_GET[tahun],4,5)=='1'){ $semester = 'Ganjil'; }else{ $semester = 'Genap'; }
-$iden = mysql_fetch_array(mysql_query("SELECT * FROM rb_identitas_sekolah ORDER BY id_identitas_sekolah DESC LIMIT 1"));
-
+$iden = mysql_fetch_array(mysql_query("SELECT * FROM rb_identitas_sekolah WHERE unit='$_SESSION[unit]'  ORDER BY id_identitas_sekolah DESC LIMIT 1"));
+echo "<h1 align=center>LAPORAN HASIL BELAJAR SISWA <br>IBNU HAJAR BOARDING SCHOOL</h1><br>";
+   
 echo "<table width=100% style='font-size:13px;'>
         <tr>
           <td width=135px>Nama Sekolah</td> <td>:</td> <td> $iden[nama_sekolah] </td>
@@ -41,18 +45,18 @@ echo "<table width=100% style='font-size:13px;'>
       </table>";
 
 echo "<table id='tablemodul1' width=100% border=1>
-          <tr>
+          <tr bgcolor='#0984e3' >
             <th rowspan='3'>No</th>
             <th width='160px' rowspan='3'>Mata Pelajaran</th>
             <th rowspan='3'>KKM</th>
             <th colspan='5'>Nilai Hasil Belajar</th>
           </tr>
           </tr>
-            <th colspan='2' style='text-align:center'>Pengetahuan</th>
-            <th colspan='2' style='text-align:center'>Keterampilan</th>
-            <th colspan='2' style='text-align:center'>Sikap</th>
+            <th colspan='2' style='text-align:center' bgcolor='#0984e3'>Pengetahuan</th>
+            <th colspan='2' style='text-align:center' bgcolor='#0984e3'>Keterampilan</th>
+            <th colspan='2' style='text-align:center' bgcolor='#0984e3'>Sikap</th>
           </tr>
-          <tr>
+          <tr bgcolor='#0984e3'>
             <th>Angka</th>
             <th width='130px'>Huruf</th>
             <th>Angka</th>
@@ -401,7 +405,7 @@ echo "<table id='tablemodul1' width=100% border=1>
         echo "</table>";
 ?>
 		<table id='tablemodul1' width=50% border=1 style="font-size: 11px;">
-          <tr>
+          <tr bgcolor='#bdc3c7'>
             <th align="center">Predikat</th>
             <th align="center">Keterangan</th>
           </tr>
@@ -424,7 +428,7 @@ echo "<table id='tablemodul1' width=100% border=1>
         </table>
 
 <table border="0" width="100%" style="bottom: 10px; position: absolute;">
-  <tr>
+  <tr bgcolor="">
     <td width="300" align="left">Orang Tua / Wali</td>
     <td width="260" align="left">Wali Kelas</td>
     <td width="260"align="left">Jakarta, <?php echo tgl_raport(date("Y-m-d")); ?> <br> Kepala Sekolah</td>
