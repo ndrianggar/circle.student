@@ -6,7 +6,7 @@
         $cekLedger = mysql_num_rows(mysql_query("SELECT nisn FROM rb_ledger WHERE kode_pelajaran = '$_GET[kd]' AND kode_kelas = '$_GET[id]' AND tahun = '$_GET[tahun]' AND nisn = '$_POST[nisn]'"));
         if ($cekLedger > 0) {
           mysql_query("UPDATE rb_ledger SET keterampilan = '$nilaiK' WHERE kode_pelajaran = '$_GET[kd]' AND nisn = '$_POST[nisn]' AND tahun = '$_GET[tahun]'");
-          echo "INSERT INTO `rb_ledger`(`id_ledger`, `kodejdwl`, `kode_pelajaran`, `nisn`, `kode_kelas`, `id_kls_pararel`, `ub`, `uas`, `pengetahuan`, `keterampilan`, `sikap`, `desk_pengetahuan`, `desk_keterampilan`, `desk_sikap`, `waktu_update`, `tahun`) VALUES ('','$_GET[jdwl]','$_GET[kd]','$_POST[nisn]','$_GET[id]','$_GET[ie]','','','$nilaiK','','','','','','".date('Y-m-d H:i:s')."','$_GET[tahun]')";
+         /* echo "INSERT INTO `rb_ledger`(`id_ledger`, `kodejdwl`, `kode_pelajaran`, `nisn`, `kode_kelas`, `id_kls_pararel`, `ub`, `uas`, `pengetahuan`, `keterampilan`, `sikap`, `desk_pengetahuan`, `desk_keterampilan`, `desk_sikap`, `waktu_update`, `tahun`) VALUES ('','$_GET[jdwl]','$_GET[kd]','$_POST[nisn]','$_GET[id]','$_GET[ie]','','','$nilaiK','','','','','','".date('Y-m-d H:i:s')."','$_GET[tahun]')";*/
         }else{
           mysql_query("INSERT INTO `rb_ledger`(`id_ledger`, `kodejdwl`, `kode_pelajaran`, `nisn`, `kode_kelas`, `id_kls_pararel`, `ub`, `uas`, `pengetahuan`, `keterampilan`, `sikap`, `desk_pengetahuan`, `desk_keterampilan`, `desk_sikap`, `waktu_update`, `tahun`) VALUES ('','$_GET[jdwl]','$_GET[kd]','$_POST[nisn]','$_GET[id]','$_GET[ie]','','','$nilaiK','','','','','','".date('Y-m-d H:i:s')."','$_GET[tahun]')");
 

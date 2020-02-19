@@ -1,0 +1,7 @@
+@media print {
+ table#tablemodul1 tr{
+    margin: 0;
+    color: #000;
+    background-color: #0984e3;
+  }
+}

@@ -20,7 +20,7 @@ $s = mysql_fetch_array(mysql_query("SELECT a.*, b.*, c.nama_guru as walikelas, c
 if (substr($_GET[tahun],4,5)=='1'){ $semester = 'Ganjil'; }else{ $semester = 'Genap'; }
 $iden = mysql_fetch_array(mysql_query("SELECT * FROM rb_identitas_sekolah where unit='$_SESSION[unit]' ORDER BY id_identitas_sekolah DESC LIMIT 1"));
 echo "<table width=100% style='font-size:13px;'>
-        <tr>
+        <tr >
           <td width=130px>Nama Sekolah</td> <td>:</td> <td>$iden[nama_sekolah] </td>
           <td width=130px>Kelas</td> <td> :</td><td> $s[kode_kelas]</td>       
         </tr>
@@ -43,7 +43,7 @@ echo "<table width=100% style='font-size:13px;'>
 
 echo "<b>C. Extrakulikuler</b>
       <table id='tablemodul1' width=100% border=1>
-          <tr>
+          <tr bgcolor='#b2bec3'>
             <th width='5%' align='center'>No</th>
             <th width='30%' align='center'>Kegiatan Extrakulikuler</th>
             <th width='20%' align='center'>Nilai</th>
@@ -87,7 +87,7 @@ echo "<b>C. Extrakulikuler</b>
     echo" 
           Keterangan :
      <table id='tablemodul1' width=25% border=1>
-        <tr>
+        <tr bgcolor='#b2bec3'>
           <td  width='80'>Range</td>
           <td  width='80'>Predikat</td>
         </tr>
@@ -108,7 +108,7 @@ echo "<b>C. Extrakulikuler</b>
 
 echo "<b>D. Prestasi</b>
       <table id='tablemodul1' width=100% border=1>
-          <tr>
+          <tr bgcolor='#b2bec3'>
             <th width='40px'>No</th>
             <th width='30%'>Jenis Kegiatan</th>
             <th>Keterangan</th>
@@ -137,8 +137,8 @@ echo "<b>D. Prestasi</b>
       echo "</table>";
 
 echo "<b>E. Ketidakhadiran</b>
-      <table id='tablemodul1' width=100% border=1>
-        <tr>
+      <table id='tablemodul1' width=100%> 
+        <tr bgcolor='#b2bec3'>
           <td align='center' width='300'>Sakit</td>
           <td align='center' width='300'>Izin</td>
           <td align='center' width='300'>Tanpa Keterangan</td>
@@ -178,8 +178,8 @@ echo "<b>F. Catatan Wali Kelas</b>
   <tr>
     <td width="300" align="left">Orang Tua / Wali</td>
     <td width="260" align="left">Wali Kelas</td>
-
-       <?php//permintaan mr sodik tgl 210519
+		<!--/permintaan mr sodik tgl 210519!-->
+       <!-- <?php
              $kls = $_GET[kelas];
             if($kls=="VII" || $kls=="VIII"){
               $tanggal ="Jakarta, 28 Juni 2019";
@@ -188,7 +188,7 @@ echo "<b>F. Catatan Wali Kelas</b>
               }else{
                 $tanggal= "Tanggal Di Tentukan";
               }
-              ?>
+              ?> -->
     <td width="260"align="left"> <?php echo $tanggal ?> <br> Kepala Sekolah</td>
   </tr>
   <tr>

@@ -6,6 +6,9 @@
                   <?php if($_SESSION[level]!='kepala'){ 
                     if (isset($_GET[tahun]) AND isset($_GET[kelas])){ ?>
                   <a class='pull-right btn btn-primary btn-sm' href='index.php?view=jadwalpelajaran&act=tambah&tahun=<?php echo $_GET[tahun]; ?>&kelas=<?php echo $_GET[kelas]; ?>'>Tambahkan Jadwal Pelajaran</a>
+                    <button style='margin-top:-3px; margin-right:5px' class='btn btn-success pull-right' data-toggle='modal' data-target='#importJadwal'><span class='fa fa-file'></span> Import</button>
+                  
+                  
                   <?php }} ?>
                   <form style='margin-right:5px; margin-top:0px' class='pull-right' action='' method='GET'>
                     <input type="hidden" name='view' value='jadwalpelajaran'>
@@ -47,10 +50,16 @@
                     </select>
                    
                     <input type="submit" style='margin-top:-4px' class='btn btn-success btn-sm' value='Lihat'>
-                  
                   </form>
 
                 </div><!-- /.box-header -->
+                <?php 
+                      if($_GET[status]=='sukses'){
+                     echo'<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Data berhasil di import</div>';
+                    }else if($_GET[status]=='gagal'){
+                      echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Data Gagal di import</div>';
+                    }
+                    ?>
                 <div class="box-body" style="overflow: auto;">
  		 <table id="dataGuru" class="table table-bordered table-striped">
 
@@ -257,7 +266,7 @@
                     </td></tr>
                     <tr><th scope='row'>Guru</th>   <td><select class='form-control' name='f'> 
                                                 <option value='0' selected>- Pilih Guru -</option>"; 
-                                                $guru = mysql_query("SELECT * FROM rb_guru WHERE unit = '$_SESSION[unit]' ORDER BY nama_guru ASC");
+                                                $guru = mysql_query("SELECT * FROM rb_guru /*WHERE unit = '$_SESSION[unit]' */ORDER BY nama_guru ASC");
                                                 while($a = mysql_fetch_array($guru)){
                                                   echo "<option value='$a[nip]'>$a[nama_guru]</option>";
                                                 }
@@ -439,3 +448,42 @@
       
 } 
 ?>
+
+
+<div class='modal fade bs-example-modal-lg' id='importJadwal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel'  aria-hidden='true'>
+  <div class='modal-dialog modal-lg'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+        <h5 class='modal-title' id='myModalLabel'>Import Jadwal Pelajaran</h5>
+      </div>
+    <div class='modal-body'> 
+     <section id='main-content'>
+      <div class='row mt'>
+        <div class='col-lg-12'>
+          <div class='panel panel-success'>
+            <div class='panel-heading'>
+                <h3 class='panel-title'><i class='fa fa-user'></i> Form Jadwal Pelajaran</h3> 
+             </div>
+           <div class='panel-body'>
+            <div class='alert alert-info alert-dismissable'><button type='button'  class='close'    data-dismiss='alert' aria-hidden='true'>&times;</button><h4>Pastikan Extensi File Excel yang digunakan excel 2003 (.xls) untuk format excel anda bisa download dibawah ini</a></h4></div>
+            <div style='padding: 0 15px;'>
+            <?php  
+             
+         echo " <form action='index.php?view=importJadwal&tahun=".$_GET[tahun]."&kelas=".$_GET[kelas]."' method='post' enctype='multipart/form-data'>
+              <a href='import_data/format_jadwal.xls'class='btn btn-default'>
+               <span class='glyphicon glyphicon-download'></span>
+                Download Format
+              </a>
+
+              <input type='file' id='fileJadwal' name='fileJadwal' class='pull-left' accept='.xls,.xlsx'>           
+                <button type='submit' name='importjadwal' class='btn btn-success btn-sm'>
+                <span class='glyphicon glyphicon-eye-open'></span> IMPORT
+                </button>
+
+               </form>
+              </div>
+            </div>
+          </div>
+          </section>
+        </div>";?>

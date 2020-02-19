@@ -15,7 +15,7 @@ if ($_GET[act]==''){
        $n = $jml[jmlp];
        $kelas = $_POST['kelaspindah'];
        $kelasi = $_POST['kelaspindahinduk'];
-       $angkatan = $_POST['angkatanpindah']; 	
+       $angkatan = $_POST['angkatanpindah'];  
        for ($i=0; $i<=$n; $i++){
          if (isset($_POST['pilih'.$i])){
            $nisn = $_POST['pilih'.$i];
@@ -32,7 +32,7 @@ if ($_GET[act]==''){
          }
        }
        if ($action) {
-            	echo "<div class='alert alert-success alert-dismissible fade in' role='alert'> 
+              echo "<div class='alert alert-success alert-dismissible fade in' role='alert'> 
                           <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                           <span aria-hidden='true'>×</span></button> <strong>Sukses!</strong> - Data telah Berhasil Di Proses,..
                           </div>";
@@ -43,14 +43,14 @@ if ($_GET[act]==''){
 
 <?php
   if (isset($_POST[prosessiswa])){
-  		$jmls = mysql_fetch_array(mysql_query("SELECT count(*) as jm FROM rb_siswa where id_kls_pararel='$_GET[kelas]'"));
+      $jmls = mysql_fetch_array(mysql_query("SELECT count(*) as jm FROM rb_siswa where id_kls_pararel='$_GET[kelas]'"));
        
-  		$n = $jmls[jm];	
+      $n = $jmls[jm]; 
          $statussiswa = $_POST['luluskansiswa'];
           for ($i=0; $i<=$n; $i++){
            if (isset($_POST['pilih'.$i])){
            $nisn = $_POST['pilih'.$i];
-          	
+            
                 $action = mysql_query("UPDATE rb_siswa SET status_siswa='$statussiswa' where nisn='$nisn'");
               }
             }        
@@ -59,18 +59,16 @@ if ($_GET[act]==''){
 
             // echo "document.location='index.php?view=siswa&luluskansiswa=".$statussiswa."&kelas='$_GET[kelas]'";
             if ($action) {
-            	echo "<div class='alert alert-success alert-dismissible fade in' role='alert'> 
+              echo "<div class='alert alert-success alert-dismissible fade in' role='alert'> 
                           <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                           <span aria-hidden='true'>×</span></button> <strong>Sukses!</strong> - Data telah Berhasil Di Proses,..
                           </div>";
             }
-    		
+        
         }
 
 
   ?>
-
-
             <div class="col-xs-12">  
               <div class="box">
                 <div class="box-header">
@@ -81,7 +79,7 @@ if ($_GET[act]==''){
                   <a style='margin-right:5px' class='pull-right btn btn-primary btn-sm' href='index.php?view=siswa&act=importdpodik'>Import Data Siswa Dapodik</a>
                   <a style='margin-right:5px' class='pull-right btn btn-primary btn-sm' href='index.php?view=siswa&act=importsiswa'>Import Data Siswa</a>
 		
- 		<!-- <a style='margin-right:5px' class='pull-right btn btn-danger btn-sm' href='index.php?view=siswa&hapusall=$nisn[pilih]' onclick=\return confirm('Apa anda yakin untuk hapus Data ini?')\">Hapus</a>
+ 		<!-- <a style='margin-right:5px' class='pull-right btn btn-danger btn-sm' href='index.php?view=siswa&hapusall=$nisn[pilih]' onclick=\"return confirm('Apa anda yakin untuk hapus Data ini?')\">Hapus</a>
 		  -->
                   <?php } ?>
 			
@@ -89,26 +87,26 @@ if ($_GET[act]==''){
 			
                   <form style='margin-right:5px; margin-top:0px' class='pull-right' action='' method='GET'>
                     <input type="hidden" name='view' value='siswa'>
-                    <input type="text" name='angkatan' style='padding:3px' placeholder='Angkatan' value='<?php echo $_GET[angkatan]; ?>'>
-                     <select name='kelas' style='padding:4px'>
+                    <input type="textarea" name='angkatan' style='padding:3px' placeholder='Angkatan' value='<?php echo $_GET[angkatan]; ?>'>
+                    <select name='kelas' style='padding:4px'>
                         <?php 
-                            echo "<option value=''>- Pilih Kelas -</option>";
+                            echo "<option value=''>- Filter Kelas -</option>";
                             if ($_SESSION[unit]=="SMP PUTRA") {
                                $kelas = mysql_query("SELECT * FROM rb_kls_pararel where kode_kelas in ('VII','VIII','IX') ");
                             }else if($_SESSION[unit]=="SMA PUTRA"){
                               $kelas = mysql_query("SELECT * FROM rb_kls_pararel where kode_kelas in ('X','XI','XII') ");
-                            }else if ($_SESSION[unit]=="SMP PUTRI"){
-                                 $kelas = mysql_query("SELECT * FROM rb_kls_pararel where kode_kelas in ('VII SMP','VIII SMP','IX SMP') ");
+                            }else if($_SESSION[unit]=="SMP PUTRI"){
+                              $kelas = mysql_query("SELECT * FROM rb_kls_pararel where kode_kelas in ('VII SMP','VIII SMP','XI SMP') ");
                             }else if($_SESSION[unit]=="SMA PUTRI"){
                               $kelas = mysql_query("SELECT * FROM rb_kls_pararel where kode_kelas in ('X.IPA','XI.IPA','XI.IPS') ");
-                             }else{ 
+                            }else{
                               $kelas = mysql_query("SELECT * FROM rb_kls_pararel");
                             }
                             while ($k = mysql_fetch_array($kelas)){
                               if ($_GET[kelas]==$k[id_kls_pararel]){
-                                echo "<option value='$k[id_kls_pararel]' selected>$k[id_kls_pararel] - $k[nm_pararel]</option>";
+                                echo "<option value='$k[id_kls_pararel]' selected>$k[nm_pararel]</option>";
                               }else{
-                                echo "<option value='$k[id_kls_pararel]'>$k[id_kls_pararel] - $k[nm_pararel]</option>";
+                                echo "<option value='$k[id_kls_pararel]'>$k[nm_pararel]</option>";
                               }
                             }
                         ?>
@@ -116,7 +114,7 @@ if ($_GET[act]==''){
                     <input type="submit" style='margin-top:-4px' class='btn btn-info btn-sm' value='Lihat'>
                   </form>
                 </div><!-- /.box-header -->
-                <div class="box-body"style="overflow: auto;">
+                <div class="box-body">
                 <form action='' method='POST'>
                 <input type="hidden" name='angkatan' value='<?php echo $_GET[angkatan]; ?>'>
                 <input type="hidden" name='kelas' value='<?php echo $_GET[kelas]; ?>'>
@@ -131,6 +129,7 @@ if ($_GET[act]==''){
                               <tr>";
                   }
                   echo "<th>No</th>
+                  		<th>PHOTO</th>
                         <th>NIPD</th>
                         <th>NISN</th>
                         <th>Nama Siswa</th>
@@ -138,18 +137,14 @@ if ($_GET[act]==''){
                         <th>Jurusan</th>
                         <th>Kelas</th>
                         <th>Kelas Pararel</th>
-                        <th>Status Siswa</th>
+                        <th>Status</th>
+                       
                         <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>";
 
-                  if($_GET[angkatan] !=''){
-                    $tampil = mysql_query("SELECT * FROM rb_siswa a LEFT JOIN rb_kelas b ON a.kode_kelas=b.kode_kelas
-                        LEFT JOIN rb_jenis_kelamin c ON a.id_jenis_kelamin=c.id_jenis_kelamin 
-                                  where a.angkatan='$_GET[angkatan]' AND a.status_siswa ='Lulus' ORDER BY a.nama ASC");
-
-                  }elseif ($_GET[kelas] != '' AND $_GET[angkatan] != ''){
+                  if ($_GET[kelas] != '' AND $_GET[angkatan] != ''){
                     $tampil = mysql_query("SELECT * FROM rb_siswa a LEFT JOIN rb_kelas b ON a.kode_kelas=b.kode_kelas 
                                               LEFT JOIN rb_jenis_kelamin c ON a.id_jenis_kelamin=c.id_jenis_kelamin 
                                                 LEFT JOIN rb_jurusan d ON b.kode_jurusan=d.kode_jurusan
@@ -161,37 +156,45 @@ if ($_GET[act]==''){
 												LEFT JOIN rb_jenis_kelamin c ON a.id_jenis_kelamin=c.id_jenis_kelamin 
                                                 LEFT JOIN rb_jurusan d ON b.kode_jurusan=d.kode_jurusan 
 												LEFT JOIN rb_kls_pararel e ON a.id_kls_pararel=e.id_kls_pararel
-											    where a.id_kls_pararel='$_GET[kelas]' AND a.kode_kelas != 'LULUS' AND a.status_siswa !='Lulus' ORDER BY  a.nama ASC");
+											    where a.id_kls_pararel='$_GET[kelas]' AND a.kode_kelas != 'LULUS' AND a.status_siswa !='LULUS' ORDER BY  a.nama ASC");
 												
                   }elseif ($_GET[kelas] == '' AND $_GET[angkatan] != ''){
                     $tampil = mysql_query("SELECT * FROM rb_siswa a LEFT JOIN rb_kelas b ON a.kode_kelas=b.kode_kelas
 												LEFT JOIN rb_jenis_kelamin c ON a.id_jenis_kelamin=c.id_jenis_kelamin 
                                                 LEFT JOIN rb_jurusan d ON b.kode_jurusan=d.kode_jurusan
 												LEFT JOIN rb_kls_pararel e ON a.id_kls_pararel=e.id_kls_pararel
-                                                  where a.status_siswa='Aktif' e.id_kls_pararel='$_GET[kelas] a.angkatan='$_GET[angkatan]'  ORDER BY a.nama ASC");
-                    }
+                                                  where e.id_kls_pararel='$_GET[kelas] a.angkatan='$_GET[angkatan]' ORDER BY a.nama ASC");
+                  }
                     $no = 1;
                     while($r=mysql_fetch_array($tampil)){
                     echo "<tr>";
                             if (isset($_GET[kelas])){
                                 echo "<td><input type='checkbox' name='pilih".$no."' value='$r[nisn]'/></td>";
                             }
-                              echo "<td>$no</td>
-                              <td>$r[nipd]</td>
+                              echo "<td>$no</td>";
+
+                              if(empty($r[foto])){
+
+                                 echo "<td><img style='width:150px; padding:3px; border:0px solid #000' src='foto_siswa/no-image.jpg'></td>";
+                                }else{
+                                  echo "<td><img style='width:150px; padding:3px; border:0px solid #000' src='foto_siswa/$r[foto]'></td>";
+                          	
+                          	}
+                             echo "<td>$r[nipd]</td>
                               <td>$r[nisn]</td>
                               <td>$r[nama]</td>
                               <td>$r[angkatan]</td>
                               <td>$r[nama_jurusan]</td>
                               <td>$r[nama_kelas]</td>
-                              <td>$r[nm_pararel]</td>";?>
+                              <td>$r[nm_pararel]</td>";
+                              if($r[status_siswa]=="Lulus"){
 
-
-                              <?php if($r[status_siswa]=="Lulus"){
-                              echo "<td  style='color: #4b4b4b; background: #18dcff;'> <font color='white'>$r[status_siswa]</font></td>";    
-                              }else{
-                                echo "<td>$r[status_siswa]</td>";
-                              }                      
-
+                             echo "<td bgcolor='#55efc4'>$r[status_siswa]</td>";
+                            }else{
+                              echo"<td>$r[status_siswa]</td>";
+                            }
+                            
+                            
                               if($_SESSION[level]!='kepala'){
                                 echo "<td><center>
                                   <a class='btn btn-default btn-xs' title='Lihat Detail' href='?view=siswa&act=detailsiswa&id=$r[nisn]'><span class='glyphicon glyphicon-search'></span></a>
@@ -207,14 +210,16 @@ if ($_GET[act]==''){
                                   <a class='btn btn-warning btn-xs' title='Penilaian Teman' href='?view=siswa&act=penilaianteman&id=$r[nisn]'><span class='glyphicon glyphicon-list'></span></a>
                                 </center></td>";
                               }
-                              
                             echo "</tr>";
                       $no++;
                       }
                       if (isset($_GET[hapus])){
                           mysql_query("DELETE FROM rb_siswa where nisn='$_GET[hapus]'");
                           echo "<script>document.location='index.php?view=siswa';</script>";
-                      }
+                   /*   }elseif(isset($_GET[hapusall])){
+			  mysql_query("DELETE FROM rb_siswa where id_siswa='$_GET[hapusall]'");
+			  echo "<script>document.location='index.php?view=siswa';</script>";*/
+			}
                   ?>
                     </tbody>
                   </table>
@@ -228,9 +233,8 @@ if ($_GET[act]==''){
               <?php if($_SESSION[level]!='kepala'){
                     if (isset($_GET[kelas])){ ?>
               <div class='box-footer'>
-              	
                   Pindah Ke : 
-                  <input type="number" name='angkatanpindah' style='padding:3px' placeholder='Angkatan' value='<?php echo $_GET[angkatan]; ?>'>
+                  <input type="textarea" name='angkatanpindah' style='padding:3px' placeholder='Angkatan' value='<?php echo $_GET[angkatan]; ?>'>
                   <select name='kelaspindahinduk' style='padding:4px'>
                         <?php 
                             echo "<option value=''>- Pilih Kelas -</option>";
@@ -240,7 +244,8 @@ if ($_GET[act]==''){
                             }
                         ?>
                     </select>
-                  <select name='kelaspindah' style='padding:4px'>
+                  <select name='kelaspindah' sty
+                    <select name='kelaspindah' style='padding:4px'>
                         <?php 
                             echo "<option value=''>- Pilih Kelas -</option>";
                             $kelas = mysql_query("SELECT * FROM rb_kls_pararel");
@@ -254,7 +259,7 @@ if ($_GET[act]==''){
               </div>
               <?php }} ?>
 
-              
+       
                <style type="text/css">
                   blink {
                   animation: blinker 0.6s linear infinite;
@@ -289,8 +294,6 @@ if ($_GET[act]==''){
                 </div>
               </form>
             </div>
- 
-
 <?php 
 }elseif($_GET[act]=='tambahsiswa'){
 
@@ -311,7 +314,7 @@ if ($_GET[act]==''){
                                '$_POST[cb]','$_POST[cc]','$_POST[cd]','$_POST[ce]','$_POST[cf]','$_POST[cg]','$_POST[ch]',
                                '$_POST[ci]','$_POST[cj]','$_POST[ck]','$_POST[cl]','$_POST[cm]','$_POST[cn]','$_POST[co]',
                                '$_POST[cp]','$_POST[cq]','$_POST[cr]','$_POST[cs]','$_POST[af]','$_POST[an]','$_POST[bo]',
-                               '','$_POST[ae]','$_POST[ct]','$_POST[ag]','0',,'$_SESSION[unit]')");
+                               '','$_POST[ae]','$_POST[ct]','$_POST[ag]','0','$_POST[unit]')");
         }
       }else{
             $query = mysql_query("INSERT INTO rb_siswa VALUES('','$_POST[aa]','$_POST[ac]','$_POST[ad]','$_POST[bd]','$_POST[ab]',
@@ -321,9 +324,7 @@ if ($_GET[act]==''){
                                '$_POST[cb]','$_POST[cc]','$_POST[cd]','$_POST[ce]','$_POST[cf]','$_POST[cg]','$_POST[ch]',
                                '$_POST[ci]','$_POST[cj]','$_POST[ck]','$_POST[cl]','$_POST[cm]','$_POST[cn]','$_POST[co]',
                                '$_POST[cp]','$_POST[cq]','$_POST[cr]','$_POST[cs]','$_POST[af]','$_POST[an]','$_POST[bo]',
-                               '','$_POST[ae]','$_POST[ct]','$_POST[ag]','0','$_SESSION[unit]')");
-            echo "";
-
+                               '','$_POST[ae]','$_POST[ct]','$_POST[ag]','0','$_POST[unit]')");
       }
 	 
         if ($query){
@@ -331,7 +332,7 @@ if ($_GET[act]==''){
         }else{
           echo "<script>document.location='index.php?view=siswa&act=detailsiswa&id=".$_POST[ab]."&gagal';</script>";
         }
-  }
+       }
 
     echo "<div class='col-md-12'>
               <div class='box box-info'>
@@ -349,20 +350,20 @@ if ($_GET[act]==''){
                     <div id='myTabContent' class='tab-content'>
                       <div role='tabpanel' class='tab-pane fade active in' id='siswa' aria-labelledby='siswa-tab'>
                           <form action='' method='POST' enctype='multipart/form-data' class='form-horizontal'>
-                          <div class='col-md-6'>
+                          <div class='col-md-7'>
                             <table class='table table-condensed table-bordered'>
                             <tbody>
                               <tr><th width='130px' scope='row'>NIPD</th> <td><input type='text' class='form-control' name='aa'></td></tr>
                               <tr><th scope='row'>NISN</th> <td><input type='text' class='form-control' name='ab'></td></tr>
                               <tr><th scope='row'>Password</th> <td><input type='text' class='form-control' name='ac'></td></tr>
                               <tr><th scope='row'>Nama Siswa</th> <td><input type='text' class='form-control' name='ad'></td></tr>
-                              
+                              <input type='hidden' name='unit' value='$_SESSION[unit]'>
 																
                               <tr><th scope='row'>Kelas</th> <td><select class='form-control' name='ae'> 
                                                                             <option value='0' selected>- Pilih kelas -</option>"; 
-                                                                              if ($_SESSION[unit]=="SMP") {
+                                                                              if ($_SESSION[unit]=="SMP PUTRA") {
                                                                                  $kelas = mysql_query("SELECT * FROM rb_kelas where kode_kelas in ('VII','VIII','IX') ");
-                                                                              } else if($_SESSION[unit]=="SMA"){
+                                                                              } else if($_SESSION[unit]=="SMA PUTRA"){
                                                                                 $kelas = mysql_query("SELECT * FROM rb_kelas where kode_kelas in ('X','XI','XII') ");
                                                                               }else{
                                                                                 $kelas = mysql_query("SELECT * FROM rb_kelas");
@@ -373,9 +374,9 @@ if ($_GET[act]==''){
                                                                     echo "</select></td></tr>
 							<tr><th scope='row'>Kelas Pararel</th> <td><select class='form-control' name='ct'> 
                                                                             <option value='0' selected>- Pilih Kelas Pararel -</option>"; 
-                                                                              if ($_SESSION[unit]=="SMP") {
+                                                                              if ($_SESSION[unit]=="SMP PUTRA") {
                                                                                  $kelasp = mysql_query("SELECT * FROM rb_kls_pararel where kode_kelas in ('VII','VIII','IX') ");
-                                                                              }else if($_SESSION[unit]=="SMA"){
+                                                                              }else if($_SESSION[unit]=="SMA PUTRA"){
                                                                                 $kelasp = mysql_query("SELECT * FROM rb_kls_pararel where kode_kelas in ('X','XI','XII') ");
                                                                               }else{
                                                                                 $kelasp = mysql_query("SELECT * FROM rb_kls_pararel");
@@ -385,7 +386,7 @@ if ($_GET[act]==''){
                                                                               }
                                                                     echo "</select></td></tr>
                               <tr><th scope='row'>Angkatan</th> <td><input type='text' class='form-control' name='af'></td></tr>";
-                              if ($_SESSION[unit]=="SMA" || $_SESSION[unit]=="") {
+                              if ($_SESSION[unit]=="SMA PUTRA" || $_SESSION[unit]=="") {
                                 echo "<tr><th scope='row'>Jurusan</th> <td><select class='form-control' name='ag'> 
                                                                             <option value='0' selected>- Pilih Jurusan -</option>"; 
                                                                               $jurusan = mysql_query("SELECT * FROM rb_jurusan");
@@ -393,8 +394,9 @@ if ($_GET[act]==''){
                                                                                   echo "<option value='$a[kode_jurusan]'>$a[nama_jurusan]</option>";
                                                                               }
                                                                     echo "</select></td></tr>";
-                              }
-                              
+                              }?>
+
+                              <?php echo                      
                               "<tr><th scope='row'>Alamat Siswa</th> <td><textarea class='form-control' name='ah'></textarea></td></tr>
                               <tr><th scope='row'>RT/RW</th> <td><input type='text' class='form-control' value='00/00' name='ai'></td></tr>
                               <tr><th scope='row'>Dusun</th> <td><input type='text' class='form-control' name='aj'></td></tr>
@@ -412,7 +414,7 @@ if ($_GET[act]==''){
                             </tbody>
                             </table>
                           </div>
-                          <div class='col-md-6'>
+                          <div class='col-md-5'>
                             <table class='table table-condensed table-bordered'>
                             <tbody>
                               <tr><th width='130px' scope='row'>NIK</th> <td><input type='text' class='form-control' name='ba'></td></tr>
@@ -443,6 +445,7 @@ if ($_GET[act]==''){
                               <tr><th scope='row'>No KPS</th> <td><input type='text' class='form-control' name='bn'></td></tr>
                               <tr><th scope='row'>Status Siswa</th> <td><input type='radio' name='bo' value='Aktif' checked> Aktif
                                                                         <input type='radio' name='bo' value='Tidak Aktif'> Tidak Aktif </td></tr>
+                                                                        
                             </tbody>
                             </table>
                           </div>  
@@ -794,6 +797,7 @@ if ($_GET[act]==''){
                                                                               <input type='radio' name='bo' value='Tidak Aktif' checked> Tidak Aktif";
                                                                     } 
                                                                     echo "</td></tr>
+
                           </tbody>
                           </table>
                         </div>  
@@ -841,6 +845,7 @@ if ($_GET[act]==''){
                             <tr><th scope='row'>Pendidikan</th> <td><input type='text' class='form-control' value='$s[pendidikan_wali]' name='cq'></td></tr>
                             <tr><th scope='row'>Pekerjaan</th> <td><input type='text' class='form-control' value='$s[pekerjaan_wali]' name='cr'></td></tr>
                             <tr><th scope='row'>Penghasilan</th> <td><input type='text' class='form-control' value='$s[penghasilan_wali]' name='cs'></td></tr>
+                             
                           </tbody>
                           </table>
                         </div>
@@ -855,6 +860,7 @@ if ($_GET[act]==''){
             </div>";
 			
 }elseif($_GET[act]=='importdpodik'){
+
 	if(isset($_POST['importdpodik'])){
 	
 			
@@ -945,6 +951,7 @@ if ($_GET[act]==''){
 					$khusus		= $data->val($i, 54);
 					$aslskl		= $data->val($i, 55);
 					$anakke		= $data->val($i, 56);
+          $unit     = $data->val($i, 57);
 					
 					$query ="INSERT INTO dapodiksiswa (nipd, nama, nisn, lahir, tgllahir, nik, agama, alamat, rt, rw, dusun, kelurahan,
 					                              kecamatan, kodepos, jnstgl, transport, telp, hp, email, noskhun, trmkps, nokps,
@@ -1104,20 +1111,21 @@ if ($_GET[act]==''){
 					$id_kls_pararel	= $data->val($i, 52);
 					$kode_jurusan	= $data->val($i, 53);
 					$id_sesi		= $data->val($i, 54);
+          $_SESSION[unit]       = $data->val($i,55);
 				
 					$query ="INSERT INTO rb_siswa (id_siswa, nipd, password, nama, id_jenis_kelamin, nisn, tempat_lahir, tanggal_lahir, nik, id_agama, kebutuhan_khusus,
 												alamat, rt, rw, dusun, kelurahan, kecamatan, kode_pos, jenis_tinggal, alat_transportasi, telepon, hp, email, skhun, penerima_kps,
 												no_kps, foto,nama_ayah,tahun_lahir_ayah,pendidikan_ayah,pekerjaan_ayah,penghasilan_ayah,kebutuhan_khusus_ayah,no_telpon_ayah,
 												nama_ibu,tahun_lahir_ibu,pendidikan_ibu,pekerjaan_ibu,penghasilan_ibu,kebutuhan_khusus_ibu,no_telpon_ibu,nama_wali,
 												tahun_lahir_wali,pendidikan_wali,pekerjaan_wali,penghasilan_wali,angkatan,status_awal,status_siswa,tingkat,kode_kelas,id_kls_pararel,
-												kode_jurusan,id_sesi)
+												kode_jurusan,id_sesi,unit)
 												
 							VALUES('$id_siswa','$nipd','$password','$nama','$id_jenis_kelamin','$nisn','$tempat_lahir','$tanggal_lahir','$nik','$id_agama','$kebutuhan_khusus
 							      ','$alamat','$rt','$rw','$dusun','$kelurahan','$kecamatan','$kode_pos','$jenis_tinggal','$alat_transportasi','$telepon','$hp','$email
 								   ','$skhun','$penerima_kps','$no_kps','$foto','$nama_ayah','$tahun_lahir_ayah','$pendidikan_ayah','$pekerjaan_ayah','$penghasilan_ayah
 								   ','$kebutuhan_khusus_ayah','$no_telpon_ayah','$nama_ibu','$tahun_lahir_ibu','$pendidikan_ibu','$pekerjaan_ibu','$penghasilan_ibu
 								   ','$kebutuhan_khusus_ibu','$no_telpon_ibu','$nama_wali','$tahun_lahir_wali','$pendidikan_wali','$pekerjaan_wali','$penghasilan_wali
-								   ','$angkatan','$status_awal','$status_siswa','$tingkat','$kode_kelas','$id_kls_pararel','$kode_jurusan','$id_sesi')";
+								   ','$angkatan','$status_awal','$status_siswa','$tingkat','$kode_kelas','$id_kls_pararel','$kode_jurusan','$id_sesi','$_POST[unit]')";
 											
 												
 					
@@ -1256,6 +1264,7 @@ if ($_GET[act]==''){
                             <tr><th scope='row'>SKHUN</th> <td>$s[skhun]</td></tr>
                             <tr><th scope='row'>Penerima KPS</th> <td>$s[penerima_kps]</td></tr>
                             <tr><th scope='row'>No KPS</th> <td>$s[no_kps]</td></tr>
+                            <tr><th scope='row'>Unit</th> <td>$s[unit]</td></tr>
                           </tbody>
                           </table>
                         </div>   

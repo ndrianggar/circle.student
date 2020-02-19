@@ -87,4 +87,45 @@
                   
                 </div><!-- /.box-body -->
                 </div>
+                <div class="col-sm-6">
+                  <div class="box">
+                        <div class="box-header ">
+                          <i class="fa fa-bullhorn"></i>
+                          <h3 class="box-title">Informasi Telah Dilakukan Penginputan Raport Bulanan</h3>
+                        </div><!-- /.box-header -->
+                        <div class="box-body" style="overflow-y: auto; height: 200px" >
+                          <?php
+                            $tampil = mysql_query("SELECT RIGHT(`raport_bulan`, 4) AS Tahun, raport_bulan FROM rb_nilai_uts 
+                                                    WHERE  raport_bulan !='' GROUP by raport_bulan order by id_nilai_uts DESC" );
+
+
+
+                            $no = 1;
+
+                            while($r=mysql_fetch_array($tampil)){
+                              $date = DATE("Y")-2;
+
+                              if ($r["Tahun"]==$date){
+
+                                 echo "
+                                    <a class='btn btn-block btn-social btn-github'>
+                                    <i class='glyphicon glyphicon-calendar'></i>$r[raport_bulan] Input Raport
+                                    </a>";
+                              }else{
+
+                              echo "
+                                    <a class ='btn btn-block btn-social btn-dropbox'>
+                                    <i class='glyphicon glyphicon-calendar'></i>$r[raport_bulan] Input Raport
+                                    </a>";
+                                  }
+                          $no++;
+                            }
+
+                          ?>
+                          
+                        
+                        </div><!-- /.box-body -->
+                      </div>
+                    </div>
             </div>
+          </div>

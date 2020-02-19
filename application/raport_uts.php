@@ -196,7 +196,7 @@ cek_session_guru();
               mysql_query("UPDATE rb_ledger SET ub = '$range[nilai]' WHERE kode_pelajaran = '$_GET[kd]' AND nisn = '$nisn' AND tahun = '$_GET[tahun]'");
             }else{
               $range = mysql_fetch_array(mysql_query("SELECT SUM(`angka_pengetahuan`)/COUNT(*) as nilai FROM rb_nilai_uts where kodejdwl='$_POST[jdwl]' AND nisn='$nisn'"));
-              mysql_query("INSERT INTO `rb_ledger`(`id_ledger`, `kodejdwl`, `kode_pelajaran`, `nisn`, `kode_kelas`, `id_kls_pararel`, `ub`, `uas`, `pengetahuan`, `keterampilan`, `sikap`, `desk_pengetahuan`, `desk_keterampilan`, `desk_sikap`, `waktu_update`, `tahun`) VALUES ('','$_POST[jdwl]','$_GET[kd]',$nisn,$_GET[id],$_GET[ie],'$range[nilai]','','','','','','','','".date('Y-m-d H:i:s')."','$_GET[tahun]')");
+              mysql_query("INSERT INTO `rb_ledger`(`id_ledger`, `kodejdwl`, `kode_pelajaran`, `nisn`, `kode_kelas`, `id_kls_pararel`, `ub`, `uas`, `pengetahuan`, `keterampilan`, `sikap`, `desk_pengetahuan`, `desk_keterampilan`, `desk_sikap`, `waktu_update`, `tahun`) VALUES ('','$_POST[jdwl]','$_GET[kd]','$nisn','$_GET[id]','$_GET[ie]','$range[nilai]','','','','','','','','".date('Y-m-d H:i:s')."','$_GET[tahun]')");
             }
           }
         }
